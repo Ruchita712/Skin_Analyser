@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Skin Analyzer{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <div class="brand-row">
+                <div>
+                    <p class="brand-name">Skin Analyzer</p>
+                    <p class="brand-tag">Smart skin type detection, product guidance, and a full downloadable report.
+                    </p>
+                </div>
+                <a class="button secondary" href="/">Home</a>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for message in messages %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+
+        <footer class="site-footer">
+            <p>Skin Analyzer © 2026 · Personalized skincare guidance in one click.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

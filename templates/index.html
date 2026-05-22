@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Skin Analyzer{% endblock %}
+
+{% block content %}
+<div class="hero-card">
+    <div class="hero-copy">
+        <h1 class="page-title">Analyze your skin in seconds.</h1>
+        <p class="subtitle">Upload a photo, discover your skin condition, get product guidance, and download a full
+            skincare report.</p>
+        <div class="hero-features">
+            <div class="feature-item">
+                <strong>Instant detection</strong>
+                <p>Get your skin type and confidence score quickly.</p>
+            </div>
+            <div class="feature-item">
+                <strong>Custom care</strong>
+                <p>Receive product suggestions and a routine built for your skin.</p>
+            </div>
+            <div class="feature-item">
+                <strong>Full report</strong>
+                <p>Download a polished PDF summary with actionable advice.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-form card">
+        <h2>Start your analysis</h2>
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Upload a skin photo</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <div class="preview-wrapper">
+                <span class="preview-label">Preview</span>
+                <img id="preview" alt="Selected image preview">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button">Analyze</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    const fileInput = document.getElementById('image');
+    const preview = document.getElementById('preview');
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (!file) {
+            preview.classList.remove('preview-visible');
+            preview.src = '';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            preview.src = event.target.result;
+            preview.classList.add('preview-visible');
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+{% endblock %}

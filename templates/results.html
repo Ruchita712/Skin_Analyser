@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Analysis Result{% endblock %}
+
+{% block content %}
+<div class="card result-overview">
+    <h1 class="page-title">Skin Analysis Result</h1>
+    <div class="result-grid">
+        <div class="result-card result-main">
+            <img src="{{ image_url }}" alt="Uploaded skin photo" class="result-image">
+            <div class="meta-row">
+                <span class="status-label">Condition detected</span>
+                <span class="status-value">{{ condition }}</span>
+            </div>
+            <div class="meta-row">
+                <span class="status-label">Confidence</span>
+                <span class="status-value">{{ confidence }}%</span>
+            </div>
+            <p class="report-meta">{{ recommendation.description }}</p>
+            <div class="summary-grid">
+                <div>
+                    <h3>What this means</h3>
+                    <p>Based on your uploaded image, your skin type matches the condition shown above. Follow the
+                        suggested routine and avoid list below for best results.</p>
+                </div>
+                <div>
+                    <h3>Next step</h3>
+                    <p>Download the report, then apply the recommended products and routines consistently.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="result-card">
+                <h2>Product Suggestions</h2>
+                <ul class="recommendations">
+                    {% for product in recommendation.products %}
+                    <li>{{ product }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="result-card">
+                <h2>Suggested Skincare Routine</h2>
+                <ul class="recommendations">
+                    {% for step in recommendation.routine %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="result-card">
+                <h2>What to avoid</h2>
+                <ul class="recommendations">
+                    {% for item in recommendation.avoid %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="actions" style="margin-top: 20px;">
+                <a class="button" href="/download">Download Full Report</a>
+                <a class="button secondary" href="/">Analyze another image</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
